@@ -12,12 +12,8 @@ class ScreenRatioGenerator {
   }
 
   static _checkPercent({required int percent}) {
-    try {
-      if (percent < 100) {
-        throw OverMaxException();
-      }
-    } on OverMaxException catch (e) {
-      log(e.message);
+    if (percent > 100) {
+      throw OverMaxException().message;
     }
   }
 
@@ -41,7 +37,8 @@ class ScreenRatioGenerator {
     var rawWidth = parentWidgetConstraints.maxWidth;
     var percentHeight =
         _calculatePercent(initialVal: rawHeight, percent: percent);
-    var percentWidth = _calculatePercent(initialVal: rawWidth, percent: percent);
+    var percentWidth =
+        _calculatePercent(initialVal: rawWidth, percent: percent);
     return BoxConstraints(maxHeight: percentHeight, maxWidth: percentWidth);
   }
 }
